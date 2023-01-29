@@ -1,0 +1,32 @@
+{
+  "name": "product-compare-be",
+  "version": "1.0.0",
+  "description": "product-compare-be",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KyleCardwell/product-compare-be.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KyleCardwell/product-compare-be/issues"
+  },
+  "homepage": "https://github.com/KyleCardwell/product-compare-be#readme",
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1"
+  }
+}
