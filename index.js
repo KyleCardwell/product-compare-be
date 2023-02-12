@@ -55,7 +55,7 @@ server.use("*", (req, res) => {
 	res.send("<h1>Sup!</h1>");
 });
 
-server.use((err, req, res, next) => {
+server.use((err, req, res, next) => { // eslint-disable-line
 	// eslint-disable-line
 	res.status(500).json({
 		message: err.message,
