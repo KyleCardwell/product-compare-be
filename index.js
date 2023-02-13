@@ -19,36 +19,55 @@ server.get("/api/hello", (req, res) => {
 
 server.post("/product", async (req, res) => {
   
-  const knife = {};
-  const knifeArr = [];
+	const productArr = []
+	
+	for (const url of req.body.urls) {
+		const knife = {};
+		const knifeArr = [];
 
-	await axios(req.body.url)
-		.then((res) => {
-			const html = res.data;
-			const $ = cheerio.load(html);
-
-
-			$("#item-specifications", html)
-				.contents()
-				.each(function () {
-					$(this)
-						.find("li")
+		try {
+			
+			await axios(url)
+				.then((res) => {
+					const html = res.data;
+					const $ = cheerio.load(html);
+		
+					$("#item-specifications", html)
+						.contents()
 						.each(function () {
-							let key = $(this).find("strong").text();
-							key = key.replace(":", "");
-							let val = $(this).find("span").text();
-
-							knife[key] = val;
-							knifeArr.push([key, val]);
+							$(this)
+								.find("li")
+								.each(function () {
+									let key = $(this).find("strong").text();
+									key = key.replace(":", "");
+									let val = $(this).find("span").text();
+		
+									knife[key] = val;
+									knifeArr.push([key, val]);
+								});
 						});
-				});
-			console.log(knife);
-			console.log(knifeArr);
+					// console.log(knife);
+					// console.log(knifeArr);
+		
+				})
 
-		})
-		.catch((err) => console.log(err));
+			const specs = {
+				knife: knife,
+				knifeArr: knifeArr
+			}
+	
+			productArr.push(specs)
 
-    res.json({ product: knifeArr, productObj: knife, message: "This is finally working" });
+		}
+
+		catch (err) {
+			console.error(err.message)
+		}
+
+
+	}
+
+    res.json({ products: productArr, message: "This is finally working" });
 });
 
 server.use("*", (req, res) => {
